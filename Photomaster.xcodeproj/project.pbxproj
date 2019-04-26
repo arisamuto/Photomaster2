@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8030791F22729AE50035F1FC /* furo_ducky.png in Resources */ = {isa = PBXBuildFile; fileRef = 8030791E22729AE50035F1FC /* furo_ducky.png */; };
 		80312B0A2271204800747255 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80312B092271204800747255 /* AppDelegate.swift */; };
 		80312B0C2271204800747255 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80312B0B2271204800747255 /* ViewController.swift */; };
 		80312B0F2271204800747255 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80312B0D2271204800747255 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8030791E22729AE50035F1FC /* furo_ducky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = furo_ducky.png; sourceTree = "<group>"; };
 		80312B062271204800747255 /* Photomaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photomaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80312B092271204800747255 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80312B0B2271204800747255 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				80312B092271204800747255 /* AppDelegate.swift */,
 				80312B0B2271204800747255 /* ViewController.swift */,
+				8030791E22729AE50035F1FC /* furo_ducky.png */,
 				80312B0D2271204800747255 /* Main.storyboard */,
 				80312B102271204A00747255 /* Assets.xcassets */,
 				80312B122271204A00747255 /* LaunchScreen.storyboard */,
@@ -229,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8030791F22729AE50035F1FC /* furo_ducky.png in Resources */,
 				80312B142271204A00747255 /* LaunchScreen.storyboard in Resources */,
 				80312B112271204A00747255 /* Assets.xcassets in Resources */,
 				80312B0F2271204800747255 /* Main.storyboard in Resources */,
