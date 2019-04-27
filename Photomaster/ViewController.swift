@@ -12,7 +12,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     //写真表示用ImageView
     @IBOutlet var photoImageView: UIImageView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,12 +22,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //[カメラ]ボタンを押したときに呼ばれるメソッド
     @IBAction func onTappedCameraButton() {
         presentPickerController(sourceType: .camera)
     }
-  //[アルバム」ボタンを押したときに呼ばれるメソッド
+    //[アルバム」ボタンを押したときに呼ばれるメソッド
     @IBAction func onTappedAlbumButton() {
         presentPickerController(sourceType: .photoLibrary)
     }
@@ -60,65 +60,69 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
-   //カメラ、アルバムの呼び出しメゾット(カメラorアルバムのソースタイプが引数
-    func presentPickerController(sourceType: UIImagePickerController.SourceType) {
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+    //カメラ、アルバムの呼び出しメゾット(カメラorアルバムのソースタイプが引数
+    func presentPickerController(sourceType: UIImagePickerController.SourceType){
+        if UIImagePickerController.isSourceTypeAvailable(sourceType){
             let picker = UIImagePickerController()
             picker.sourceType = sourceType
             picker.delegate = self
             self.present(picker, animated:true,completion:nil)
         }
+        
+    }
+        
+        //写真が選択された時に呼ばれるメソッド
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info:[UIImagePickerController.InfoKey:Any]) {
+            self.dismiss(animated: true, completion: nil)
+            //画像を出力
+            photoImageView.image = info[.originalImage]as? UIImage
+        }
+    
+    // 元の画像にテキストを合成するメソッド
+    func drawText(image: UIImage) -> UIImage {
+        
+        //テキストの内容の設定
+        let text = "LifeisTech!"
+        
+        //testFontAttributes:文字の特性[フォントとサイズ、カラー、スタイル]の設定
+        let textFontAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "Arial", size: 120)!,
+            NSAttributedString.Key.foregroundColor: UIColor.red
+        ]
+        
+        //グラッフィクスコンテキスト生成編集を開始
+        UIGraphicsBeginImageContext(image.size)
+        
+        //読み込んだ写真を書き出す
+        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        
+        //定義 CGRect(x: [左からのx座標]px, y: [上からのy座標]px, width: [横の長さ]px, height: [縦の長さ]px)
+        let margin: CGFloat = 5.0 //余白
+        let textRect = CGRect(x: margin, y: margin, width: image.size.width - margin, height: image.size.height - margin)
+        
+        //textRectで指定した範囲にtextFontAttributesに従ってtextを描き出す
+        text.draw(in: textRect, withAttributes: textFontAttributes)
+        
+        //グラフィックスコンテキストの画像を取得
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        //グラフィクスコンテキストの編集を終了
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+        
+        
+        // 元の画像にイラストを合成するメゾット
+        
     }
     
-    //写真が選択された時に呼ばれるメソッド
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info:[UIImagePickerController.InfoKey:Any]) {
-        self.dismiss(animated: true, completion: nil)
-        //画像を出力
-        photoImageView.image = info[.originalImage]as? UIImage
-    }
-    
-    
-}
-// 元の画像にテキストを合成するメソッド
-func drawText(image: UIImage) -> UIImage {
-    
-    //テキストの内容の設定
-    let text = "LifeisTech!"
-    
-    //testFontAttributes:文字の特性[フォントとサイズ、カラー、スタイル]の設定
-    let textFontAttributes = [
-        NSAttributedString.Key.font: UIFont(name: "Arial", size: 120)!,
-        NSAttributedString.Key.foregroundColor: UIColor.red
-    ]
-    
-    //グラッフィクスコンテキスト生成編集を開始
-    UIGraphicsBeginImageContext(image.size)
-    
-    //読み込んだ写真を書き出す
-    image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-    
-    //定義 CGRect(x: [左からのx座標]px, y: [上からのy座標]px, width: [横の長さ]px, height: [縦の長さ]px)
-    let margin: CGFloat = 5.0 //余白
-    let textRect = CGRect(x: margin, y: margin, width: image.size.width - margin, height: image.size.height - margin)
-    
-    //textRectで指定した範囲にtextFontAttributesに従ってtextを描き出す
-    text.draw(in: textRect, withAttributes: textFontAttributes)
-    
-    //グラフィックスコンテキストの画像を取得
-    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-    
-    //グラフィクスコンテキストの編集を終了
-    UIGraphicsEndImageContext()
-    
-    return newImage!
-    
-    
-// 元の画像にイラストを合成するメゾット
     func drawMaskImage(image: UIImage) -> UIImage {
         
         //マスク画像(保存場所: PhotoMaster > Assets.xcassets)の設定
         let maskImage = UIImage(named: "furo_ducky")!
+        
+        UIGraphicsBeginImageContext(image.size)
         
         image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
         
@@ -134,5 +138,7 @@ func drawText(image: UIImage) -> UIImage {
         UIGraphicsEndPDFContext()
         
         return newImage!
-}
+        
+    }
+    
 }
